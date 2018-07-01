@@ -105,6 +105,7 @@ class UsersController extends Controller
      */
     public function update(Request $request,int $id) : \Illuminate\Http\JsonResponse
     {
+        $this->validator->setId($id);
         $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
         $user = $this->repository->update($request->all(), $id);
