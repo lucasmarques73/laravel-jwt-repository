@@ -22,12 +22,12 @@ class UserValidator extends LaravelValidator
             'name' => 'required',
             'cpf' => 'required|unique:users,cpf',
             'password' => 'required',
-            'email' => 'required|unique:users,cpf',
+            'email' => 'required|unique:users,email',
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required',
             'cpf' => 'required|unique:users,cpf',
-            'email' => 'required|unique:users,cpf',
+            'email' => 'required|unique:users,email',
         ],
     ];
 
