@@ -33,6 +33,7 @@ class UserValidator extends LaravelValidator
 
     protected $messages = [
         'required' => 'The :attribute field is required.',
+        'unique' => 'The :attribute field must be unique'
     ];
 
 }
