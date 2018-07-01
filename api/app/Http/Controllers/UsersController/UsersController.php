@@ -42,9 +42,9 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index() : \Illuminate\Http\JsonResponse
     {
         $users = $this->repository->all();
 
@@ -58,9 +58,9 @@ class UsersController extends Controller
      *
      * @param  Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request) : \Illuminate\Http\JsonResponse
     {
         $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -68,7 +68,7 @@ class UsersController extends Controller
 
         $response = [
             'message' => 'User created.',
-            'data'    => $user->toArray(),
+            'data'    => $user,
         ];
 
         return response()->json($response);
@@ -79,12 +79,17 @@ class UsersController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id) : \Illuminate\Http\JsonResponse
     {
         $user = $this->repository->find($id);
 
+        if(!$user){
+            return response()->json([
+                'data' => 'user not found',
+            ],204);    
+        }
         return response()->json([
                 'data' => $user,
             ]);
@@ -94,11 +99,11 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request $request
-     * @param  string            $id
+     * @param  int  $id
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,int $id) : \Illuminate\Http\JsonResponse
     {
         $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
@@ -106,7 +111,7 @@ class UsersController extends Controller
 
         $response = [
             'message' => 'User updated.',
-            'data'    => $user->toArray(),
+            'data'    => $user,
         ];
 
         return response()->json($response);
@@ -118,9 +123,9 @@ class UsersController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function delete($id)
+    public function delete(int $id) : \Illuminate\Http\JsonResponse
     {
         $deleted = $this->repository->delete($id);
 
