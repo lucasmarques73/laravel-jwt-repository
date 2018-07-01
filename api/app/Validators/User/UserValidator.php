@@ -18,7 +18,21 @@ class UserValidator extends LaravelValidator
      * @var array
      */
     protected $rules = [
-        ValidatorInterface::RULE_CREATE => [],
-        ValidatorInterface::RULE_UPDATE => [],
+        ValidatorInterface::RULE_CREATE => [
+            'name' => 'required',
+            'cpf' => 'required|unique:users,cpf',
+            'password' => 'required',
+            'email' => 'required|unique:users,cpf',
+        ],
+        ValidatorInterface::RULE_UPDATE => [
+            'name' => 'required',
+            'cpf' => 'required|unique:users,cpf',
+            'email' => 'required|unique:users,cpf',
+        ],
     ];
+
+    protected $messages = [
+        'required' => 'The :attribute field is required.',
+    ];
+
 }

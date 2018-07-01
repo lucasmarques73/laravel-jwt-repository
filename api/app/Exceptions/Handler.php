@@ -46,6 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof \Prettus\Validator\Exceptions\ValidatorException){
+            return response()->json([
+                'error'   => true,
+                'message' => $exception->getMessageBag()
+            ],400);
+        }
         return parent::render($request, $exception);
     }
 }

@@ -15,4 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('user', ['uses' => 'UsersController\UsersController@index']);
+Route::get('user', ['as' => 'user.all', 'uses' => 'UsersController\UsersController@index']);
+Route::post('user', ['as' => 'user.store', 'uses' => 'UsersController\UsersController@store']);
+Route::get('user/{id}', ['as' => 'user.show', 'uses' => 'UsersController\UsersController@show']);
+Route::put('user/{id}', ['as' => 'user.update', 'uses' => 'UsersController\UsersController@update']);
+Route::delete('user/{id}', ['as' => 'user.delete', 'uses' => 'UsersController\UsersController@delete']);
