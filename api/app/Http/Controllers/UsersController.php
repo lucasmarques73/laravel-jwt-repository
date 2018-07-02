@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\UsersController;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
-use App\Repositories\User\UserRepository;
-use App\Validators\User\UserValidator;
+use App\Repositories\UserRepository;
+use App\Validators\UserValidator;
 use App\Http\Controllers\Controller;
+
 
 /**
  * Class UsersController.
@@ -20,33 +21,33 @@ class UsersController extends Controller
     /**
      * @var UserRepository
      */
-    protected $repository;
+    protected $userRepository;
 
     /**
      * @var UserValidator
      */
-    protected $validator;
+    protected $userValidator;
 
     /**
      * UsersController constructor.
      *
-     * @param UserRepository $repository
-     * @param UserValidator $validator
+     * @param UserRepository $userRepository
+     * @param UserValidator $userValidator
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(UserRepository $userRepository, UserValidator $userValidator)
     {
-        $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->userRepository = $userRepository;
+        $this->userValidator  = $userValidator;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function index() : \Illuminate\Http\JsonResponse
+    public function index() : JsonResponse
     {
-        $users = $this->repository->all();
+        $users = $this->userRepository->all();
 
         return response()->json([
                 'data' => $users,
@@ -58,13 +59,13 @@ class UsersController extends Controller
      *
      * @param  Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(Request $request) : \Illuminate\Http\JsonResponse
+    public function store(Request $request) : JsonResponse
     {
-        $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+        $this->userValidator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-        $user = $this->repository->create($request->all());
+        $user = $this->userRepository->create($request->all());
 
         $response = [
             'message' => 'User created.',
@@ -79,11 +80,11 @@ class UsersController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function show(int $id) : \Illuminate\Http\JsonResponse
+    public function show(int $id) : JsonResponse
     {
-        $user = $this->repository->find($id);
+        $user = $this->userRepository->find($id);
 
         if(!$user){
             return response()->json([
@@ -101,14 +102,14 @@ class UsersController extends Controller
      * @param  Request $request
      * @param  int  $id
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(Request $request,int $id) : \Illuminate\Http\JsonResponse
+    public function update(Request $request,int $id) : JsonResponse
     {
-        $this->validator->setId($id);
-        $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+        $this->userValidator->setId($id);
+        $this->userValidator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-        $user = $this->repository->update($request->all(), $id);
+        $user = $this->userRepository->update($request->all(), $id);
 
         $response = [
             'message' => 'User updated.',
@@ -124,11 +125,11 @@ class UsersController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function delete(int $id) : \Illuminate\Http\JsonResponse
+    public function delete(int $id) : JsonResponse
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->userRepository->delete($id);
 
         return response()->json([
                 'message' => 'User deleted.',

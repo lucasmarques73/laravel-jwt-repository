@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entities\User;
+namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;	
@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class User.
  *
- * @package namespace App\Entities\User;
+ * @package namespace App\Entities;
  */
-class User extends Model implements Transformable
+class User extends Authenticatable implements Transformable
 {
     use TransformableTrait;
     use SoftDeletes;
@@ -34,4 +34,9 @@ class User extends Model implements Transformable
     ];
     
     protected $dates = ['deleted_at'];
+
+    public function setPasswordAttribute(string $value) : void
+	{
+		$this->attributes['password'] = bcrypt($value);
+	}
 }

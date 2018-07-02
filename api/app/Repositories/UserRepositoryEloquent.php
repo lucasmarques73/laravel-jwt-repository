@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\User\UserRepository;
-use App\Entities\User\User;
-use App\Validators\User\UserValidator;
+use App\Repositories\UserRepository;
+use App\Entities\User;
+use App\Validators\UserValidator;
 
 /**
  * Class UserRepositoryEloquent.
  *
- * @package namespace App\Repositories\User;
+ * @package namespace App\Repositories;
  */
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
