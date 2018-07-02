@@ -3,8 +3,6 @@
 namespace App\Entities;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;	
 
 /**
@@ -12,9 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package namespace App\Entities;
  */
-class User extends Authenticatable implements Transformable
+class User extends Authenticatable
 {
-    use TransformableTrait;
     use SoftDeletes;
 
     /**
