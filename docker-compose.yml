@@ -6,7 +6,7 @@ services:
            build: docker
            container_name: my-php
            volumes:
-              - ./app:/app
+              - ./api:/api
            expose:
             - 9000
 
@@ -24,7 +24,7 @@ services:
         composer:
            image: composer
            volumes:
-              - ./app:/app
+              - ./api:/api
 
         database:
            container_name: my-database
@@ -35,6 +35,8 @@ services:
               - "POSTGRES_DB=laravel"
               - "POSTGRES_USER=laravel"
               - "POSTGRES_PASSWORD=laravel"
+           volumes:
+              - ./docker/postgres-data:/var/lib/postgresql/data
 
         adminer:
            container_name: my-adminer
