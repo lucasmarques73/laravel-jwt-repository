@@ -1,2 +1,2 @@
-/docker/logs/*.log
+/api/docker/logs/*.log
 .vscode

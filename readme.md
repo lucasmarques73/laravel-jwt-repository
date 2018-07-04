@@ -7,6 +7,16 @@ Containers
 - my-adminer | adminer
 - composer
 
+Composer Install
+```
+docker exec -it -u "$(id -u):$(id -g)" -w /api my-php composer install
+```
+
+Composer build - Migrate and Seed
+```
+docker exec -it -u "$(id -u):$(id -g)" -w /api my-php composer build
+```
+
 Creating Project Laravel
 ```
 docker run -it --rm -u "$(id -u):$(id -g)" -v "$PWD":/api -w /api composer create-project laravel/laravel api 
