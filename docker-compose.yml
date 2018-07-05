@@ -29,14 +29,15 @@ services:
               - 80:80
            volumes:
               - ./docker/nginx:/etc/nginx/conf.d
-              - ./docker/logs:/var/log/nginx
+              - ./docker/logs/nginx:/var/log/nginx
+              - ./docker/logs/laravel:/api/storage/logs
            links:
               - php
               
         composer:
            image: composer
            volumes:
-              - ./api:/api
+              - .:/api
 
         adminer:
            container_name: my-adminer

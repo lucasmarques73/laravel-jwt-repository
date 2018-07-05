@@ -1,6 +1,6 @@
 FROM php:7.2-fpm
 
-LABEL Lucas Marques <lucasmarques73@hotmail.com>
+LABEL maintainer 'Lucas Marques <lucasmarques73@hotmail.com>'
 
 RUN apt-get update  
 
@@ -14,10 +14,8 @@ RUN docker-php-ext-install pdo pdo_pgsql zip mbstring curl
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# RUN mkdir -p /api
+ADD . /api
 
-# ADD . /api
+WORKDIR /api
 
-# WORKDIR /api
-
-# RUN composer install
+RUN [ ! -d 'vendor' ] && composer install || echo 'Directory already exists'
