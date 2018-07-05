@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+      dados:
+
 services:
 
         database:
@@ -12,7 +15,7 @@ services:
               - "POSTGRES_USER=laravel"
               - "POSTGRES_PASSWORD=laravel"
            volumes:
-              - ./docker/postgres-data:/var/lib/postgresql/data
+              - dados:/var/lib/postgresql/data
 
         php:
            build: .
