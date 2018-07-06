@@ -1,49 +1,50 @@
 version: '3'
-
 volumes:
-      data:
-
+  postgres-data:
+  redis-data:
 services:
-
-        database:
-           container_name: my-database
-           image: postgres
-           ports:
-             - "5432:5432"
-           environment:
-              - "POSTGRES_DB=laravel"
-              - "POSTGRES_USER=laravel"
-              - "POSTGRES_PASSWORD=laravel"
-           volumes:
-              - data:/var/lib/postgresql/data
-
-        php:
-           build: .
-           container_name: my-php
-           volumes:
-              - .:/api
-           expose:
-            - 9000
-
-        nginx:
-           image: nginx:latest
-           container_name: my-nginx
-           ports:
-              - 80:80
-           volumes:
-              - ./docker/nginx:/etc/nginx/conf.d
-              - ./docker/logs/nginx:/var/log/nginx
-              - ./docker/logs/laravel:/api/storage/logs
-           links:
-              - php
-              
-        composer:
-           image: composer
-           volumes:
-              - .:/api
-
-        adminer:
-           container_name: my-adminer
-           image: adminer
-           ports:
-              - 8080:8080
+  database:
+    image: postgres
+    container_name: my-database
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_DB=laravel"
+      - "POSTGRES_USER=laravel"
+      - "POSTGRES_PASSWORD=laravel"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  php:
+    build: .
+    container_name: my-php
+    volumes:
+      - .:/api
+    depends_on:
+      - database
+  nginx:
+    image: nginx:latest
+    container_name: my-nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./docker/logs/nginx:/var/log/nginx
+      - ./docker/logs/laravel:/api/storage/logs
+    links:
+      - php
+      - database
+      - redis
+    depends_on:
+      - php
+  redis:
+    image: redis:3.2
+    container_name: my-redis
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+  adminer:
+    image: adminer
+    container_name: my-adminer
+    ports:
+      - 8080:8080

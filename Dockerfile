@@ -19,3 +19,7 @@ ADD . /api
 WORKDIR /api
 
 RUN [ ! -d 'vendor' ] && composer install || echo 'Directory already exists'
+
+RUN chmod 777 storage/logs
+
+EXPOSE 9000
