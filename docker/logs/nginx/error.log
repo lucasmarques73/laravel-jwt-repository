@@ -1,7 +1,0 @@
-2018/07/05 13:56:07 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/app.conf:40
-2018/07/05 13:56:33 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/app.conf:40
-2018/07/05 14:00:05 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/app.conf:40
-2018/07/05 14:01:54 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/app.conf:40
-2018/07/05 14:08:01 [error] 6#6: *1 connect() failed (113: No route to host) while connecting to upstream, client: 172.18.0.1, server: api.local, request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:9000", host: "api.local"
-2018/07/05 14:08:52 [error] 6#6: *1 connect() failed (113: No route to host) while connecting to upstream, client: 172.18.0.1, server: api.local, request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:9000", host: "api.local"
-2018/07/05 14:36:50 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/app.conf:40

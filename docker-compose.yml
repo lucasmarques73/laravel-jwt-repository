@@ -1,7 +1,11 @@
 version: '3'
 volumes:
   postgres-data:
+    driver: "local"
   redis-data:
+    driver: "local"
+  elasticsearch-data:
+    driver: "local"
 services:
   database:
     image: postgres
@@ -28,8 +32,7 @@ services:
       - 80:80
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d
-      - ./docker/logs/nginx:/var/log/nginx
-      - ./docker/logs/laravel:/api/storage/logs
+      - ./docker/nginx/logs:/var/log/nginx
     links:
       - php
       - database
@@ -41,8 +44,15 @@ services:
     container_name: my-redis
     volumes:
       - redis-data:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
+  elasticsearch:
+    image: elasticsearch:alpine
+    container_name: my-elasticsearch
+    volumes:
+      - elasticsearch-data:/data
+      - ./docker/elasticsearch/logging.yml:/usr/share/elasticsearch/config/logging.yml
   adminer:
     image: adminer
     container_name: my-adminer
