@@ -52,10 +52,13 @@
             "@php artisan package:discover"
         ],
         "post-install-cmd":[
-            "composer copy-env && composer key-generate && composer dump-autoload"
+            "composer copy-env && composer key-generate && composer dump-autoload && composer build"
         ],
         "build":[
             "@php artisan migrate --seed"
+        ],
+        "refresh-db": [
+            "@php artisan migrate:refesh --seed"
         ],
         "copy-env":[
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

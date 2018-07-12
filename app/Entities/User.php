@@ -3,7 +3,8 @@
 namespace App\Entities;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;	
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class User.
@@ -34,6 +35,6 @@ class User extends Authenticatable
 
     public function setPasswordAttribute(string $value) : void
 	{
-		$this->attributes['password'] = bcrypt($value);
+		$this->attributes['password'] = Hash::make($value);
 	}
 }

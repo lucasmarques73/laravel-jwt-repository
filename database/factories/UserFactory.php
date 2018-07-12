@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ $factory->define(App\Entities\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => bcrypt('secret'),
+        'password' => Hash::make('secret'),
         'remember_token' => str_random(10),
 		'rg' => substr($faker->creditCardNumber,0,8),
 		'cpf' => str_replace(['.','-'], '', $faker->cpf),
